@@ -18,7 +18,10 @@ class SecurityServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('mariuzzo/security');
+		$this->package('mariuzzo/security', 'mariuzzo-security');
+		$this->app->bind('mariuzzo-security::command.user.create', function($app) {
+			return new UserCreateCommand();
+		});
 	}
 
 	/**
@@ -38,7 +41,7 @@ class SecurityServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array();
+		return array('mariuzzo.security.users.create');
 	}
 
 }
