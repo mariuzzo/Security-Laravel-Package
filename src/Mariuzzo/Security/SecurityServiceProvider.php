@@ -19,10 +19,15 @@ class SecurityServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
+		// Define the package.
 		$this->package('mariuzzo/security', 'mariuzzo-security');
+
+		// Bind commands to the IoC container.
 		$this->app->bind('mariuzzo-security::command.user.create', function($app) {
 			return new UserCreateCommand();
 		});
+
+		// Register the command to make them available.
 		$this->commands(array(
 			'mariuzzo-security::command.user.create'
 		));
@@ -45,7 +50,7 @@ class SecurityServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array('mariuzzo.security.users.create');
+		return array();
 	}
 
 }
