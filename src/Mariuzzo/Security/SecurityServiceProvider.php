@@ -1,6 +1,7 @@
 <?php namespace Mariuzzo\Security;
 
 use Illuminate\Support\ServiceProvider;
+use Mariuzzo\Security\Command\UserCreateCommand;
 
 class SecurityServiceProvider extends ServiceProvider {
 
@@ -22,6 +23,9 @@ class SecurityServiceProvider extends ServiceProvider {
 		$this->app->bind('mariuzzo-security::command.user.create', function($app) {
 			return new UserCreateCommand();
 		});
+		$this->commands(array(
+			'mariuzzo-security::command.user.create'
+		));
 	}
 
 	/**
