@@ -1,4 +1,4 @@
-<?php namespace Mariuzzo\Security;
+<?php namespace Mariuzzo\Security\Command;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
