@@ -2,6 +2,11 @@
 
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * The CreateRolesTable class.
+ *
+ * @author rmariuzzo
+ */
 class CreateRolesTable extends AbstractMigration {
 
 	/**
