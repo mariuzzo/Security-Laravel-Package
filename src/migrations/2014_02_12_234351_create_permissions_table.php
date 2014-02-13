@@ -2,6 +2,11 @@
 
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * The CreatePermissionsTable class.
+ *
+ * @author rmariuzzo
+ */
 class CreatePermissionsTable extends AbstractMigration {
 
 	/**
