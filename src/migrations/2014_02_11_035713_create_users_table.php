@@ -24,6 +24,7 @@ class CreateUsersTable extends AbstractMigration {
 			$table->string('last_name', 100);
 	        $table->string('email', 100)->unique();
 	        $table->string('status', 1);
+			$table->integer('role_id')->unsigned();
 		});
 			
 		$this->addCommonsTo('users');
