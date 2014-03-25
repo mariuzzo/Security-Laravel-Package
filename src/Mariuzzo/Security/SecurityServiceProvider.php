@@ -1,6 +1,7 @@
 <?php namespace Mariuzzo\Security;
 
 use Illuminate\Support\ServiceProvider;
+use Mariuzzo\Security\Command\UserCreateCommand;
 
 class SecurityServiceProvider extends ServiceProvider {
 
@@ -18,7 +19,18 @@ class SecurityServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('mariuzzo/security');
+		// Define the package.
+		$this->package('mariuzzo/security', 'mariuzzo-security');
+
+		// Bind commands to the IoC container.
+		$this->app->bind('mariuzzo-security::command.user.create', function($app) {
+			return new UserCreateCommand();
+		});
+
+		// Register the command to make them available.
+		$this->commands(array(
+			'mariuzzo-security::command.user.create'
+		));
 	}
 
 	/**
