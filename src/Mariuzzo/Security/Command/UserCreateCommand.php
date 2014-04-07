@@ -52,7 +52,7 @@ class UserCreateCommand extends Command {
 		$data = compact('username', 'password', 'password_confirmation', 
 			'email', 'first_name', 'last_name', 'status', 'role_id');
 
-		// Instanciate a new User
+		// Instantiate a new User
 		$user = new User($data);
 
 		// If validation fails
