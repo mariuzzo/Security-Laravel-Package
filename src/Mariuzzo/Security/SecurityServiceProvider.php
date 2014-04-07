@@ -2,6 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 use Mariuzzo\Security\Command\UserCreateCommand;
+use Mariuzzo\Security\Command\RoleCreateCommand;
 
 class SecurityServiceProvider extends ServiceProvider {
 
@@ -27,9 +28,17 @@ class SecurityServiceProvider extends ServiceProvider {
 			return new UserCreateCommand();
 		});
 
+		$this->app->bind('mariuzzo-security::command.role.create', function($app) {
+			return new RoleCreateCommand();
+		});
+
 		// Register the command to make them available.
 		$this->commands(array(
 			'mariuzzo-security::command.user.create'
+		));
+
+		$this->commands(array(
+			'mariuzzo-security::command.role.create'
 		));
 	}
 
