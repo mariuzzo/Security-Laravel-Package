@@ -3,7 +3,7 @@
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Illuminate\Support\Facades\Validator;
+use Mariuzzo\Security\Models\User;
 
 class UserCreateCommand extends Command {
 
@@ -48,31 +48,19 @@ class UserCreateCommand extends Command {
 		$status                = $this->ask('Type the status:');
 		$role_id			   = $this->ask('Type the Role Id:');
 
-		// Validation Rules
-		$rules = array(
-			'username' 				=> 'required',
-			'password' 				=> 'required|min:4',
-			'password_confirmation' => 'required|same:password',
-			'email' 				=> 'required|email|unique:users',
-			'first_name' 			=> 'required',
-			'last_name' 			=> 'required',
-			'status' 				=> 'required',
-			'role_id' 				=> 'required'
-		);
-
 		// Data
 		$data = compact('username', 'password', 'password_confirmation', 
-			'email', 'first_name', 'last_name', 'status');
+			'email', 'first_name', 'last_name', 'status', 'role_id');
 
-		// Validator
-		$validator = Validator::make($data, $rules);
+		// Instantiate a new User
+		$user = new User($data);
 
 		// If validation fails
 		// show errors
-		if($validator->fails()){
-			$messages = $validator->messages();
+		if( ! $user->validate($data)){
+			$messages = $user->errors();
 
-			foreach ($messages->all() as $message)
+			foreach ($messages as $message)
 			{
 			    $this->error($message);
 			}
@@ -81,13 +69,10 @@ class UserCreateCommand extends Command {
 		}
 
 		// Hash the password.
-		$password = \Hash::make($password);
+		$user->password = \Hash::make($password);
 
 		// Insert new user to database.
-		\DB::table('users')->insert(
-			compact('username', 'password', 'email', 'first_name', 
-				'last_name', 'status', 'role_id')
-		);
+		$user->save();
 
 		$this->info('User created!');
 	}
