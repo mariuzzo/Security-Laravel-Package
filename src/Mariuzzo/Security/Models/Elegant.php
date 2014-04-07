@@ -17,7 +17,7 @@ class Elegant extends Eloquent {
 
      	if ($v->fails())
 		{
-     		$this->errors = $v->errors;
+     		$this->errors = $v->errors();
 			return false;
 		}
 
